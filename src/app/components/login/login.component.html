@@ -1,0 +1,54 @@
+<app-home-header></app-home-header>
+<div class="container">
+    <div class="row align-items-center pt-5">
+        <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+            <div class="card">
+                <div class="card-header card-header-danger text-center">
+                    <h4 class="card-title">Inicio de sesión</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="formGroup"
+                          (ngSubmit)="onSubmit()"
+                          novalidate>
+                        <mat-form-field class="example-full-width mr-2" appearance="outline">
+                            <mat-label>Documento*</mat-label>
+                            <input matInput
+                                   formControlName="document"
+                                   name="document"
+                                   [errorStateMatcher]="matcher"
+                            />
+                            <mat-error *ngIf="formGroup.get('document').hasError('required')">
+                                Campo obligatorio
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width mr-2" appearance="outline">
+                            <mat-label>Contraseña*</mat-label>
+                            <input matInput
+                                   type="password"
+                                   formControlName="password"
+                                   name="password"
+                                   [errorStateMatcher]="matcher"
+                                   [type]="hide ? 'password' : 'text'"
+                            />
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="formGroup.get('password').hasError('required')">
+                                Campo obligatorio
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="row justify-content-center">
+                            <div class="form-group">
+                                <button type="submit" mat-raised-button class="btn btn-danger btn-block">
+                                    Iniciar
+                                </button>
+                            </div>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
