@@ -1,11 +1,20 @@
 <div>
-    <app-home-header></app-home-header>
-    <div class="container" style="padding-top: 120px">
-        <div class="row align-items-center">
-            <div class="col">
-                <div>
-                </div>
+  <app-home-header></app-home-header>
+  <div class="container-fluid">
+    <h1 class="text-center"><strong>Pensum {{pensum.code}} </strong></h1>
+    <div id="container-semester" *ngFor="let semester of pensum.semesters">
+      <div class="container-fluid" id="semester">Semestre {{semester.id}}</div>
+      <div class="card-container">
+        <div *ngFor="let subject of semester.subjects" class="card">
+          <div class="card-body">
+            <div class="card-text text-center">
+              <p>{{subject.code}}</p>
+              <p>{{subject.name}}</p>
+              <p>Creditos: {{subject.credits}}</p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

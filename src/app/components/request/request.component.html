@@ -1,1 +1,92 @@
-<p>request works!</p>
+<app-home-header></app-home-header>
+<div class="container">
+  <div class="row align-items-center pt-5">
+    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-danger text-center">
+          <h4 class="card-title">Solicitud</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()"
+                [formGroup]="formGroup"
+                novalidate>
+
+            <mat-form-field appearance="outline" class="example-full-width mr-2">
+              <mat-label>Nombres*</mat-label>
+              <input formControlName="name"
+                     matInput
+                     name="name"
+              />
+              <mat-error *ngIf="formGroup.get('name').hasError('required')">
+                Campo obligatorio
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="example-full-width mr-2">
+              <mat-label>Apellidos*</mat-label>
+              <input formControlName="surname"
+                     matInput
+                     name="surname"
+              />
+              <mat-error *ngIf="formGroup.get('surname').hasError('required')">
+                Campo obligatorio
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="example-full-width mr-2">
+              <mat-label>Documento*</mat-label>
+              <input formControlName="document"
+                     matInput
+                     name="document"
+              />
+              <mat-error *ngIf="formGroup.get('document').hasError('required')">
+                Campo obligatorio
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="example-full-width mr-2">
+              <mat-label>Email*</mat-label>
+              <input formControlName="email"
+                     matInput
+                     name="email"
+              />
+              <mat-error *ngIf="formGroup.get('email').hasError('required')">
+                Campo obligatorio
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('email').hasError('email')">
+                Email no válido
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="example-full-width mr-2">
+              <mat-label>Código</mat-label>
+              <input formControlName="code"
+                     matInput
+                     name="code"
+              />
+            </mat-form-field>
+
+            <label for="importFile">Seleccione un archivo para cargar:</label>
+            <div class="input-group mb-3">
+              <div class="custom-file text-center">
+                <input #labelImport (change)="onFileChange($event.target.files)" formControlName="importFile" id="importFile"
+                       size="50" type="file">
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <div class="form-group">
+                <button class="btn btn-danger btn-block" mat-raised-button type="submit">
+                  Confirmar
+                </button>
+              </div>
+              <br>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

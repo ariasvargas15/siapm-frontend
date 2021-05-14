@@ -5,6 +5,8 @@ import {CommonModule} from '@angular/common'
 import {BrowserModule} from '@angular/platform-browser'
 import {LoginComponent} from './components/login/login.component'
 import {AdminLayoutComponent} from './components/layouts/admin-layout/admin-layout.component'
+import {RequestComponent} from './components/request/request.component'
+import {RegisterComponent} from './components/register/register.component'
 
 const routes: Routes = [
   {
@@ -14,6 +16,8 @@ const routes: Routes = [
   },
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'request', component: RequestComponent},
   {
     path: '',
     component: AdminLayoutComponent,

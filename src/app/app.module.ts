@@ -16,19 +16,22 @@ import {HttpClientModule} from '@angular/common/http'
 import {LoginComponent} from './components/login/login.component'
 import {CommonModule} from '@angular/common'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-import {PensumComponent} from './components/pensum/pensum.component'
 import {AdminLayoutComponent} from './components/layouts/admin-layout/admin-layout.component'
 import {ComponentsModule} from './components/layouts/admin-layout/components.module'
 import {AuthAdminService} from './services/authAdminService'
-import {AuthGuardService} from './services/authGuard.service';
-import { RequestComponent } from './components/request/request.component'
+import {AuthGuardService} from './services/authGuard.service'
+import {RequestComponent} from './components/request/request.component'
+import {RegisterComponent} from './components/register/register.component';
+import { AdminRequestsComponent } from './components/admin-requests/admin-requests.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminLayoutComponent,
-    RequestComponent
+    RequestComponent,
+    RegisterComponent,
   ],
   imports: [
     FormsModule,

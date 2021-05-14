@@ -12,15 +12,8 @@ declare interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
   {path: '/pensum', title: 'Pensum', icon: 'description', class: ''},
- /* {path: '/plan', title: 'Planes Estratégicos', icon: 'landscape', class: ''},
-  {path: '/eje', title: 'Ejes Estratégicos', icon: 'call_split', class: ''},
-  {path: '/objetivo', title: 'Objetivos', icon: 'content_paste', class: ''},
-  {path: '/proceso', title: 'Procesos', icon: 'linear_scale', class: ''},
-  {path: '/meta', title: 'Metas', icon: 'fact_check', class: ''},
-  {path: '/indicador', title: 'Indicadores', icon: 'assessment', class: ''},
-  {path: '/indicador-periodo-avance', title: 'Indicadores Periodo Avance', icon: 'trending_flat', class: ''},
-  {path: '/indicador-periodo-cambio', title: 'Indicadores Periodo Cambio', icon: 'swap_horiz', class: ''},
-  {path: '/gestion', title: 'Gestion de usuarios', icon: 'account_circle', class: 'admin'},*/
+  {path: '/requests', title: 'Solicitudes', icon: 'question_answer', class: 'admin'},
+  {path: '/users', title: 'Usuarios', icon: 'people', class: 'admin'},
 ]
 
 
@@ -40,7 +33,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     let permissions = ''
     const user = this.tokenStorageService.getUser()
-    if (user.roles == 'ROLE_ADMIN') {
+    if (user.role === 'ROLE_ADMIN') {
       permissions = 'admin'
     }
     this.menuItems = ROUTES.filter(

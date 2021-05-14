@@ -4,7 +4,7 @@
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
       <div class="card">
         <div class="card-header card-header-danger text-center">
-          <h4 class="card-title">Inicio de sesión</h4>
+          <h4 class="card-title">Registro docente</h4>
         </div>
         <div class="card-body">
           <form [formGroup]="formGroup"
@@ -15,10 +15,32 @@
               <input matInput
                      formControlName="document"
                      name="document"
-                     [errorStateMatcher]="matcher"
               />
               <mat-error *ngIf="formGroup.get('document').hasError('required')">
                 Campo obligatorio
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width mr-2" appearance="outline">
+              <mat-label>Codigo*</mat-label>
+              <input matInput
+                     formControlName="code"
+                     name="code"
+              />
+              <mat-error *ngIf="formGroup.get('code').hasError('required')">
+                Campo obligatorio
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width mr-2" appearance="outline">
+              <mat-label>Email*</mat-label>
+              <input matInput
+                     formControlName="email"
+                     name="email"
+              />
+              <mat-error *ngIf="formGroup.get('email').hasError('required')">
+                Campo obligatorio
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('email').hasError('email')">
+                Email no válido
               </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width mr-2" appearance="outline">
@@ -27,7 +49,6 @@
                      type="password"
                      formControlName="password"
                      name="password"
-                     [errorStateMatcher]="matcher"
                      [type]="hide ? 'password' : 'text'"
               />
               <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
@@ -41,7 +62,7 @@
             <div class="row justify-content-center">
               <div class="form-group">
                 <button type="submit" mat-raised-button class="btn btn-danger btn-block">
-                  Iniciar
+                  Registrarme
                 </button>
               </div>
               <br>
@@ -52,3 +73,4 @@
     </div>
   </div>
 </div>
+

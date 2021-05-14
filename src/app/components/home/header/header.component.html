@@ -1,23 +1,28 @@
 <header>
-    <nav class="navbar navbar-static-top">
-        <div class="container-fluid">
-            <div routerLink="/" class="navbar-header">
-                <a class="navbar-brand">
-                    <strong>SIAPM</strong>
-                </a>
-            </div>
-            <ul class="nav justify-content-end">
-                <li class="nav-item button-header">
-                    <button routerLink="/login" class="btn btn-danger btn-block">
-                        Login
-                    </button>
-                </li>
-                <li class="nav-item button-header">
-                    <button routerLink="/register" class="btn btn-danger btn-block">
-                        Registro
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </nav>
+  <nav class="navbar navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header" routerLink="/">
+        <a class="navbar-brand">
+          <strong>SIAPM</strong>
+        </a>
+      </div>
+      <ul class="nav justify-content-end">
+        <li class="nav-item button-header">
+          <button class="btn btn-danger btn-block" routerLink="/login">
+            Login
+          </button>
+        </li>
+        <li class="nav-item button-header">
+          <button class="btn btn-danger btn-block" routerLink="/register">
+            Registro
+          </button>
+        </li>
+        <li class="nav-item button-header">
+          <button class="btn btn-danger btn-block" routerLink="/request">
+            Solicitud
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>

@@ -5,6 +5,8 @@ import {NgModule} from '@angular/core'
 import {AuthGuardService} from '../../../services/authGuard.service'
 import {AuthAdminService} from '../../../services/authAdminService'
 import {PensumComponent} from '../../pensum/pensum.component'
+import {AdminRequestsComponent} from '../../admin-requests/admin-requests.component'
+import {AdminUsersComponent} from '../../admin-users/admin-users.component'
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import {PensumComponent} from '../../pensum/pensum.component'
     RouterModule.forChild(AdminLayoutRoutes),
   ],
   declarations: [
-    PensumComponent
+    PensumComponent,
+    AdminRequestsComponent,
+    AdminUsersComponent,
   ],
   providers: [
     AuthGuardService,

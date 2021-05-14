@@ -1,10 +1,15 @@
 import {Routes} from '@angular/router'
 import {PensumComponent} from '../../pensum/pensum.component'
 import {AuthGuardService} from '../../../services/authGuard.service'
+import {AuthAdminService} from '../../../services/authAdminService'
+import {AdminRequestsComponent} from '../../admin-requests/admin-requests.component'
+import {AdminUsersComponent} from '../../admin-users/admin-users.component'
 
 export const AdminLayoutRoutes: Routes = [
 
   {path: 'pensum', component: PensumComponent, canActivate: [AuthGuardService]},
+  {path: 'requests', component: AdminRequestsComponent, canActivate: [AuthGuardService, AuthGuardService]},
+  {path: 'users', component: AdminUsersComponent, canActivate: [AuthGuardService, AuthAdminService]},
   /*  {
         path: '',
         children: [{
