@@ -20,7 +20,7 @@ export class AdminRequestsComponent implements OnInit {
 
   requests: Request[] = []
   dataSource: MatTableDataSource<Request>
-  displayedColumns: string[] = ['document', 'name', 'surname', 'email', 'code', 'certificate', 'receipt']
+  displayedColumns: string[] = ['document', 'name', 'surname', 'email', 'code', 'certificate', 'receipt', 'status']
 
   constructor(private filesService: FilesService, private requestService: RequestService) {
   }

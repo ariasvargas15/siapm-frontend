@@ -6,6 +6,7 @@ export class Request {
   code: string
   certificate: string
   receipt: string
+  status: string
 
   constructor() {
   }

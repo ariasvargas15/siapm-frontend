@@ -4,16 +4,16 @@ import {TokenStorageService} from '../../../../services/token-storage.service'
 declare const $: any
 
 declare interface RouteInfo {
-  path: string;
-  title: string;
-  icon: string;
-  class: string;
+  path: string
+  title: string
+  icon: string
+  class: string
 }
 
 export const ROUTES: RouteInfo[] = [
-  {path: '/pensum', title: 'Pensum', icon: 'description', class: ''},
+  {path: '/active', title: 'Pensum activo', icon: 'description', class: ''},
+  {path: '/pensums', title: 'Pensums', icon: 'list', class: 'admin'},
   {path: '/requests', title: 'Solicitudes', icon: 'question_answer', class: 'admin'},
-  {path: '/users', title: 'Usuarios', icon: 'people', class: 'admin'},
 ]
 
 
@@ -23,9 +23,8 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[]
 
-  panelOpenState = false
+  menuItems: any[]
 
   constructor(private tokenStorageService: TokenStorageService) {
   }

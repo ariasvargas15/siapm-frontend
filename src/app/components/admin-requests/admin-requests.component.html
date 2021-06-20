@@ -44,14 +44,18 @@
                 <ng-container matColumnDef="certificate">
                   <th *matHeaderCellDef mat-header-cell mat-sort-header>CONSTANCIA</th>
                   <td *matCellDef="let element" mat-cell>
-                    <button class="btn btn-info" (click)="downloadFile(element.certificate)">Descargar <i class="material-icons">download</i></button>
+                    <button class="btn btn-info" (click)="downloadFile(element.certificate)"><i class="material-icons">download</i></button>
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="receipt">
                   <th *matHeaderCellDef mat-header-cell mat-sort-header>RECIBO</th>
                   <td *matCellDef="let element" mat-cell>
-                    <button class="btn btn-info" (click)="downloadFile(element.receipt)">Descargar <i class="material-icons">download</i></button>
+                    <button class="btn btn-info" (click)="downloadFile(element.receipt)"><i class="material-icons">download</i></button>
                   </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>ESTADO</th>
+                  <td *matCellDef="let element" mat-cell> {{element.status}} </td>
                 </ng-container>
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns;"

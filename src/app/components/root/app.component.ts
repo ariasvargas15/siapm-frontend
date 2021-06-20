@@ -17,9 +17,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorage.getToken()
     if (this.isLoggedIn) {
-      this.router.navigate(['/pensum']).then()
+      this.router.navigate(['/active']).then()
     } else {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/home']).then()
     }
 
   }

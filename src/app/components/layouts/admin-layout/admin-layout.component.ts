@@ -7,6 +7,5 @@ import {Component, OnInit} from '@angular/core'
 })
 export class AdminLayoutComponent implements OnInit{
   ngOnInit(): void {
-    console.log("paso por aca")
   }
 }

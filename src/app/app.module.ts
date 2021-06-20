@@ -24,7 +24,8 @@ import {RequestComponent} from './components/request/request.component'
 import {RegisterComponent} from './components/register/register.component'
 import {PensumService} from './services/pensum.service'
 import {RequestService} from './services/request.service'
-import {FilesService} from './services/files.service'
+import {FilesService} from './services/files.service';
+import { PensumListComponent } from './components/pensum-list/pensum-list.component'
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {FilesService} from './services/files.service'
     AdminLayoutComponent,
     RequestComponent,
     RegisterComponent,
+    PensumListComponent,
   ],
   imports: [
     FormsModule,
