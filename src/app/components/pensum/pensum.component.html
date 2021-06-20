@@ -1,7 +1,15 @@
 <div class="main-content">
   <div class="container-fluid">
+    <div class="card-header-text card-header-danger">
+      <div class="row d-flex justify-content-end">
+        <div class="mr-3">
+          <a (click)="addPensum()" class="btn btn-danger btn-sm" data-target="#add"
+             data-toggle="modal"><i class="material-icons">add</i></a>
+        </div>
+      </div>
+    </div>
     <h1 class="text-center"><strong>Pensum {{pensum.code}} </strong></h1>
-    <div id="container-semester" *ngFor="let semester of pensum.semesters">
+    <div *ngFor="let semester of pensum.semesters" id="container-semester">
       <div class="container-fluid" id="semester">Semestre {{semester.id}}</div>
       <div class="card-container">
         <div *ngFor="let subject of semester.subjects" class="card">
@@ -17,5 +25,111 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="newPensum!==undefined" aria-labelledby="myModalLabel" class="modal modal-angular fade" id="add"
+     role="dialog"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header-text card-header-danger">
+            <div class="card-text">
+              <div class="card-title">
+                <div class="d-flex justify-content-between">
+                  <h4 class="align-bottom">Agregar pensum</h4>
+                </div>
+              </div>
+            </div>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="card-body">
+            <form #formAdd="ngForm" (ngSubmit)="save()" [formGroup]="addForm">
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Código *</mat-label>
+                <input [(ngModel)]="newPensum.code"
+                       [errorStateMatcher]="matcher"
+                       formControlName="code"
+                       matInput name="code">
+                <mat-error *ngIf="addForm.get('code').hasError('required')">
+                  El código es obligatorio.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Carrera *</mat-label>
+                <input [(ngModel)]="newPensum.career"
+                       [errorStateMatcher]="matcher"
+                       formControlName="career"
+                       matInput name="career">
+                <mat-error *ngIf="addForm.get('career').hasError('required')">
+                  La carrera es obligatoria.
+                </mat-error>
+              </mat-form-field>
+              <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-primary btn-sm" type="submit"><i class="material-icons">save</i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="newSubject!==undefined" aria-labelledby="myModalLabel" class="modal modal-angular fade" id="addSubject"
+     role="dialog"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header-text card-header-danger">
+            <div class="card-text">
+              <div class="card-title">
+                <div class="d-flex justify-content-between">
+                  <h4 class="align-bottom">Agregar pensum</h4>
+                </div>
+              </div>
+            </div>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="card-body">
+            <form #formAdd="ngForm" (ngSubmit)="save()" [formGroup]="addForm">
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Código *</mat-label>
+                <input [(ngModel)]="newPensum.code"
+                       [errorStateMatcher]="matcher"
+                       formControlName="code"
+                       matInput name="code">
+                <mat-error *ngIf="addForm.get('code').hasError('required')">
+                  El código es obligatorio.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Carrera *</mat-label>
+                <input [(ngModel)]="newPensum.career"
+                       [errorStateMatcher]="matcher"
+                       formControlName="career"
+                       matInput name="career">
+                <mat-error *ngIf="addForm.get('career').hasError('required')">
+                  La carrera es obligatoria.
+                </mat-error>
+              </mat-form-field>
+              <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-primary btn-sm" type="submit"><i class="material-icons">save</i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 

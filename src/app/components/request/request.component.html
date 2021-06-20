@@ -7,13 +7,14 @@
           <h4 class="card-title">Solicitud</h4>
         </div>
         <div class="card-body">
-          <form (ngSubmit)="onSubmit()"
+          <form #formRequest="ngForm" (ngSubmit)="onSubmit()"
                 [formGroup]="formGroup"
                 novalidate>
 
             <mat-form-field appearance="outline" class="example-full-width mr-2">
               <mat-label>Nombres*</mat-label>
-              <input formControlName="name"
+              <input [(ngModel)]="request.name"
+                formControlName="name"
                      matInput
                      name="name"
               />
@@ -24,7 +25,8 @@
 
             <mat-form-field appearance="outline" class="example-full-width mr-2">
               <mat-label>Apellidos*</mat-label>
-              <input formControlName="surname"
+              <input [(ngModel)]="request.surname"
+                formControlName="surname"
                      matInput
                      name="surname"
               />
@@ -35,7 +37,8 @@
 
             <mat-form-field appearance="outline" class="example-full-width mr-2">
               <mat-label>Documento*</mat-label>
-              <input formControlName="document"
+              <input [(ngModel)]="request.document"
+                formControlName="document"
                      matInput
                      name="document"
               />
@@ -46,7 +49,8 @@
 
             <mat-form-field appearance="outline" class="example-full-width mr-2">
               <mat-label>Email*</mat-label>
-              <input formControlName="email"
+              <input [(ngModel)]="request.email"
+                formControlName="email"
                      matInput
                      name="email"
               />
@@ -60,23 +64,31 @@
 
             <mat-form-field appearance="outline" class="example-full-width mr-2">
               <mat-label>Código</mat-label>
-              <input formControlName="code"
+              <input [(ngModel)]="request.code"
+                formControlName="code"
                      matInput
                      name="code"
               />
             </mat-form-field>
 
-            <label for="importFile">Seleccione un archivo para cargar:</label>
+            <label for="importFile">Adjunte el recibo de pago:</label>
             <div class="input-group mb-3">
               <div class="custom-file text-center">
-                <input #labelImport (change)="onFileChange($event.target.files)" formControlName="importFile" id="importFile"
+                <input #labelImport (change)="onUploadReceipt($event.target.files)" formControlName="importFile" id="importFile"
+                       size="50" type="file">
+              </div>
+            </div>
+            <label for="importCertificate">Adjunte la constancia de materias:</label>
+            <div class="input-group mb-3">
+              <div class="custom-file text-center">
+                <input #labelImport2 (change)="onUploadCertificate($event.target.files)" formControlName="importCertificate" id="importCertificate"
                        size="50" type="file">
               </div>
             </div>
 
             <div class="row justify-content-center">
               <div class="form-group">
-                <button class="btn btn-danger btn-block" mat-raised-button type="submit">
+                <button class="btn btn-danger btn-block" (click)="sendRequest()" mat-raised-button type="submit">
                   Confirmar
                 </button>
               </div>

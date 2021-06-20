@@ -1,7 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core'
 import {Pensum} from '../../models/pensum'
-import {Semester} from '../../models/semester'
+import {PensumService} from '../../services/pensum.service'
+import {Notifications} from '../../utils/notification'
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms'
+import {ErrorStateMatcher} from '@angular/material/core'
 import {Subject} from '../../models/subject'
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted))
+  }
+}
+
+declare const $: any
 
 @Component({
   selector: 'app-pensum',
@@ -10,9 +22,24 @@ import {Subject} from '../../models/subject'
 })
 export class PensumComponent implements OnInit {
 
-  pensum: Pensum
+  @ViewChild('formAdd') ngAddForm: NgForm
 
-  constructor() {
+  pensum: Pensum = new Pensum()
+  newPensum: Pensum = new Pensum()
+  newSubject: Subject = new Subject()
+  matcher = new MyErrorStateMatcher()
+
+  addForm = new FormGroup({
+    code: new FormControl('', [
+      Validators.required,
+    ]),
+    career: new FormControl('', [
+      Validators.required,
+    ]),
+  })
+
+
+  constructor(private pensumService: PensumService) {
   }
 
   ngOnInit(): void {
@@ -21,104 +48,38 @@ export class PensumComponent implements OnInit {
   }
 
   getPensum(): void {
-    this.pensum = new Pensum(
-      '1155', true, [
-        new Semester(
-          1, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-          ]
-        ),
-        new Semester(
-          2, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        ),
-        new Semester(
-          3, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        ),
-        new Semester(
-          4, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        ),
-        new Semester(
-          5, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        ),
-        new Semester(
-          6, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-          ]
-        ),
-        new Semester(
-          7, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        ),
-        new Semester(
-          8, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        ),
-        new Semester(
-          9, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        ),
-        new Semester(
-          10, [
-            new Subject('1155101', 'Fundamentos de programacion', 2),
-            new Subject('1155102', 'Programacion orientada a objetos', 2),
-            new Subject('1155103', 'Calculo diferencial', 2),
-            new Subject('1155104', 'Intro a vida universitaria', 2),
-            new Subject('1155104', 'Fisica mecanica', 2),
-          ]
-        )
-      ]
-    )
+    this.pensumService.getActivePensum()
+      .subscribe({
+        next: data => {
+          this.pensum = data
+        },
+        error: error => {
+          Notifications.showNotification(error.error, 'danger')
+          console.log(error)
+        }
+      })
+  }
+
+  addPensum() {
+    this.ngAddForm.reset()
+    this.ngAddForm.resetForm()
+    this.newPensum = new Pensum()
+  }
+
+  save() {
+    if (this.addForm.valid) {
+      console.log(this.newPensum)
+      this.pensumService.createPensum(this.newPensum)
+        .subscribe({
+          next: data => {
+            $('#add').modal('hide')
+            Notifications.showNotification('Pensum creado correctamente', 'success')
+          },
+          error: error => {
+            Notifications.showNotification(error.error, 'danger')
+            console.log(error.toString())
+          }
+        })
+    }
   }
 }

@@ -1,5 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core'
-import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms'
+import {Request} from '../../models/request'
+import {RequestService} from '../../services/request.service'
+import {Notifications} from '../../utils/notification'
 
 @Component({
   selector: 'app-request',
@@ -10,6 +13,12 @@ export class RequestComponent implements OnInit {
 
   @ViewChild('labelImport')
   labelImport: ElementRef
+
+  @ViewChild('labelImport2')
+  labelImport2: ElementRef
+
+  @ViewChild('formRequest')
+  ngRequestForm: NgForm
 
   formGroup = new FormGroup({
     name: new FormControl('', [
@@ -28,11 +37,16 @@ export class RequestComponent implements OnInit {
     importFile: new FormControl('', [
       Validators.required
     ]),
+    importCertificate: new FormControl('', [
+      Validators.required
+    ]),
   })
 
-  fileToUpload: File = null
+  request: Request = new Request()
+  receipt: File = null
+  certificate: File = null
 
-  constructor() {
+  constructor(private requestService: RequestService) {
   }
 
   ngOnInit(): void {
@@ -41,11 +55,35 @@ export class RequestComponent implements OnInit {
   onSubmit(): void {
   }
 
-  onFileChange(files: FileList) {
+  onUploadReceipt(files: FileList) {
     this.labelImport.nativeElement.innerText = Array.from(files)
       .map(f => f.name)
       .join(', ')
-    this.fileToUpload = files.item(0)
+    this.receipt = files.item(0)
   }
 
+  onUploadCertificate(files: FileList) {
+    this.labelImport.nativeElement.innerText = Array.from(files)
+      .map(f => f.name)
+      .join(', ')
+    this.certificate = files.item(0)
+  }
+
+  sendRequest() {
+    if (this.formGroup.valid) {
+      this.requestService.sendRequest(this.receipt, this.certificate, this.request)
+        .subscribe({
+            next: data => {
+              this.ngRequestForm.reset()
+              this.ngRequestForm.resetForm()
+              Notifications.showNotification('Solicitud enviada correctamente', 'success')
+            },
+            error: error => {
+              Notifications.showNotification(error.error, 'danger')
+              console.log(error)
+            }
+          }
+        )
+    }
+  }
 }
