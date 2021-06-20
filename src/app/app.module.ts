@@ -21,11 +21,10 @@ import {ComponentsModule} from './components/layouts/admin-layout/components.mod
 import {AuthAdminService} from './services/authAdminService'
 import {AuthGuardService} from './services/authGuard.service'
 import {RequestComponent} from './components/request/request.component'
-import {RegisterComponent} from './components/register/register.component';
-import { AdminRequestsComponent } from './components/admin-requests/admin-requests.component';
-import { AdminUsersComponent } from './components/admin-users/admin-users.component'
+import {RegisterComponent} from './components/register/register.component'
 import {PensumService} from './services/pensum.service'
 import {RequestService} from './services/request.service'
+import {FilesService} from './services/files.service'
 
 @NgModule({
   declarations: [
@@ -57,7 +56,8 @@ import {RequestService} from './services/request.service'
     AuthGuardService,
     AuthAdminService,
     PensumService,
-    RequestService
+    RequestService,
+    FilesService,
   ],
   bootstrap: [AppComponent]
 })

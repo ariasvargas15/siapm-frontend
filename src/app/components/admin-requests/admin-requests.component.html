@@ -1,1 +1,74 @@
-<p>admin-requests works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header-text card-header-danger">
+            <div class="row d-flex justify-content-between">
+              <div class="card-text ml-3">
+                <div class="card-title">
+                  <h4>Solicitudes</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <mat-form-field>
+                <mat-label>Filtrar</mat-label>
+                <input #input (keyup)="applyFilter($event)" matInput>
+              </mat-form-field>
+              <table [dataSource]="dataSource" mat-table matSort>
+                <ng-container matColumnDef="document">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>DOCUMENTO</th>
+                  <td *matCellDef="let element" mat-cell>{{element.document}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>NOMBRE</th>
+                  <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="surname">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>APELLIDO</th>
+                  <td *matCellDef="let element" mat-cell> {{element.surname}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>EMAIL</th>
+                  <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="code">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>CÓDIGO</th>
+                  <td *matCellDef="let element" mat-cell> {{element.code}} </td>
+                </ng-container>
+                <ng-container matColumnDef="certificate">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>CONSTANCIA</th>
+                  <td *matCellDef="let element" mat-cell>
+                    <button class="btn btn-info" (click)="downloadFile(element.certificate)">Descargar <i class="material-icons">download</i></button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="receipt">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>RECIBO</th>
+                  <td *matCellDef="let element" mat-cell>
+                    <button class="btn btn-info" (click)="downloadFile(element.receipt)">Descargar <i class="material-icons">download</i></button>
+                  </td>
+                </ng-container>
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns;"
+                    mat-row></tr>
+                <div *ngIf="requests.length !=0">
+                  <tr *matNoDataRow class="mat-row">
+                    <td class="mat-cell" colspan="4">Nada coincide con el filtro "{{input.value}}"
+                    </td>
+                  </tr>
+                </div>
+
+              </table>
+              <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

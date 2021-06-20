@@ -10,6 +10,9 @@ import {AdminUsersComponent} from '../../admin-users/admin-users.component'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {ReactiveFormsModule} from '@angular/forms'
 import {MatInputModule} from '@angular/material/input'
+import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatTableModule} from '@angular/material/table'
+import {MatSortModule} from '@angular/material/sort'
 
 
 @NgModule({
@@ -19,6 +22,9 @@ import {MatInputModule} from '@angular/material/input'
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
   ],
   declarations: [
     PensumComponent,

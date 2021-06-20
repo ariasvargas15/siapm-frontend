@@ -25,4 +25,8 @@ export class RequestService {
     )
     return this.http.post<any>(REQUEST_API, formData, {'headers': headers})
   }
+
+  getAllRequests(): Observable<Request[]> {
+    return this.http.get<Request[]>(REQUEST_API)
+  }
 }

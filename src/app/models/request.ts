@@ -4,6 +4,8 @@ export class Request {
   document: string
   email: string
   code: string
+  certificate: string
+  receipt: string
 
   constructor() {
   }
