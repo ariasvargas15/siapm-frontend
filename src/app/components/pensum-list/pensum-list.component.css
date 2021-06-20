@@ -1,0 +1,29 @@
+.mat-header-cell {
+  text-align: center;
+  justify-content: center;
+  background-color: #e53935;
+  color: white;
+}
+
+.mat-cell {
+  text-align: left;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+}
+
+textarea:read-only, input:read-only {
+  color: #C0C0C0;
+}
+
+.row-selected {
+  background-color: #47a3ff;
+}
+
+.normal-row {
+  background-color: #FAFAFA;
+  font-weight: bold;
+}
+

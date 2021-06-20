@@ -26,6 +26,9 @@ import {PensumService} from './services/pensum.service'
 import {RequestService} from './services/request.service'
 import {FilesService} from './services/files.service';
 import { PensumListComponent } from './components/pensum-list/pensum-list.component'
+import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatTableModule} from '@angular/material/table'
+import {MatSortModule} from '@angular/material/sort'
 
 @NgModule({
   declarations: [
@@ -34,7 +37,6 @@ import { PensumListComponent } from './components/pensum-list/pensum-list.compon
     AdminLayoutComponent,
     RequestComponent,
     RegisterComponent,
-    PensumListComponent,
   ],
   imports: [
     FormsModule,

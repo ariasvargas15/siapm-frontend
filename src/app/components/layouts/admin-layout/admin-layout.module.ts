@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input'
 import {MatPaginatorModule} from '@angular/material/paginator'
 import {MatTableModule} from '@angular/material/table'
 import {MatSortModule} from '@angular/material/sort'
+import {PensumListComponent} from '../../pensum-list/pensum-list.component'
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {MatSortModule} from '@angular/material/sort'
   declarations: [
     PensumComponent,
     AdminRequestsComponent,
+    PensumListComponent
   ],
   providers: [
     AuthGuardService,

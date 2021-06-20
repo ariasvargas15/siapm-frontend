@@ -1,1 +1,109 @@
-<p>pensum-list works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header-text card-header-danger">
+            <div class="row d-flex justify-content-between">
+              <div class="card-text ml-3">
+                <div class="card-title">
+                  <h4>Pensums</h4>
+                </div>
+              </div>
+              <div class="mr-3">
+                <a (click)="addPensum()" class="btn btn-danger btn-sm" data-target="#add"
+                   data-toggle="modal"><i class="material-icons">add</i></a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <mat-form-field>
+                <mat-label>Filtrar</mat-label>
+                <input #input (keyup)="applyFilter($event)" matInput>
+              </mat-form-field>
+              <table [dataSource]="dataSource" mat-table matSort>
+                <ng-container matColumnDef="code">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>CÓDIGO</th>
+                  <td *matCellDef="let element" mat-cell>{{element.code}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="career">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>CARRERA</th>
+                  <td *matCellDef="let element" mat-cell> {{element.career}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="active">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>ACTIVO</th>
+                  <td *matCellDef="let element" mat-cell> {{element.active ? 'SI' : 'NO'}} </td>
+                </ng-container>
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns;"
+                    mat-row></tr>
+                <div *ngIf="pensums.length !=0">
+                  <tr *matNoDataRow class="mat-row">
+                    <td class="mat-cell" colspan="4">Nada coincide con el filtro "{{input.value}}"
+                    </td>
+                  </tr>
+                </div>
+
+              </table>
+              <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="newPensum!==undefined" aria-labelledby="myModalLabel" class="modal modal-angular fade" id="add"
+     role="dialog"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header-text card-header-danger">
+            <div class="card-text">
+              <div class="card-title">
+                <div class="d-flex justify-content-between">
+                  <h4 class="align-bottom">Agregar pensum</h4>
+                </div>
+              </div>
+            </div>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="card-body">
+            <form #formAdd="ngForm" (ngSubmit)="save()" [formGroup]="addForm">
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Código *</mat-label>
+                <input [(ngModel)]="newPensum.code"
+                       [errorStateMatcher]="matcher"
+                       formControlName="code"
+                       matInput name="code">
+                <mat-error *ngIf="addForm.get('code').hasError('required')">
+                  El código es obligatorio.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Carrera *</mat-label>
+                <input [(ngModel)]="newPensum.career"
+                       [errorStateMatcher]="matcher"
+                       formControlName="career"
+                       matInput name="career">
+                <mat-error *ngIf="addForm.get('career').hasError('required')">
+                  La carrera es obligatoria.
+                </mat-error>
+              </mat-form-field>
+              <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-primary btn-sm" type="submit"><i class="material-icons">save</i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

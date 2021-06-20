@@ -19,4 +19,8 @@ export class PensumService {
     const headers = {'content-type': 'application/json'}
     return this.http.post<any>(PENSUM_API + 'add', newPensum, {'headers': headers})
   }
+
+  getAllPensums(): Observable<Pensum[]> {
+    return this.http.get<Pensum[]>(PENSUM_API + 'all')
+  }
 }
