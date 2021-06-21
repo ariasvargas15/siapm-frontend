@@ -75,14 +75,14 @@
             <div class="input-group mb-3">
               <div class="custom-file text-center">
                 <input #labelImport (change)="onUploadReceipt($event.target.files)" formControlName="importFile" id="importFile"
-                       size="50" type="file">
+                       size="50" type="file" accept="application/pdf">
               </div>
             </div>
             <label for="importCertificate">Adjunte la constancia de materias:</label>
             <div class="input-group mb-3">
               <div class="custom-file text-center">
                 <input #labelImport2 (change)="onUploadCertificate($event.target.files)" formControlName="importCertificate" id="importCertificate"
-                       size="50" type="file">
+                       size="50" type="file" accept="application/pdf">
               </div>
             </div>
 

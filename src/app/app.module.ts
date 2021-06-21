@@ -24,11 +24,8 @@ import {RequestComponent} from './components/request/request.component'
 import {RegisterComponent} from './components/register/register.component'
 import {PensumService} from './services/pensum.service'
 import {RequestService} from './services/request.service'
-import {FilesService} from './services/files.service';
-import { PensumListComponent } from './components/pensum-list/pensum-list.component'
-import {MatPaginatorModule} from '@angular/material/paginator'
-import {MatTableModule} from '@angular/material/table'
-import {MatSortModule} from '@angular/material/sort'
+import {FilesService} from './services/files.service'
+import {SubjectService} from './services/subject.service'
 
 @NgModule({
   declarations: [
@@ -62,6 +59,7 @@ import {MatSortModule} from '@angular/material/sort'
     PensumService,
     RequestService,
     FilesService,
+    SubjectService,
   ],
   bootstrap: [AppComponent]
 })

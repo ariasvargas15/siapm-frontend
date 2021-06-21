@@ -1,0 +1,149 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card-header-text card-header-danger">
+      <div class="row d-flex justify-content-between">
+        <mat-form-field appearance="outline">
+          <mat-label>Pensum*</mat-label>
+          <mat-select [(ngModel)]="this.pensum"
+                      [errorStateMatcher]="matcher" name="names">
+            <mat-option *ngFor="let p of pensums"
+                        [value]="p">
+              {{p.code}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="mr-3">
+          <a (click)="addSubject()" class="btn btn-danger btn-sm" data-target="#add"
+             data-toggle="modal"><i class="material-icons">add</i></a>
+        </div>
+      </div>
+    </div>
+    <h1 class="text-center"><strong>Pensum {{pensum.code}} </strong></h1>
+    <div *ngFor="let semester of pensum.semesters" id="container-semester">
+      <div class="container-fluid" id="semester">Semestre {{semester.id}}</div>
+      <div class="card-container">
+        <div *ngFor="let subject of semester.subjects" class="card">
+          <div class="card-body">
+            <div class="card-text text-center">
+              <p>{{subject.code}}</p>
+              <p>{{subject.name}}</p>
+              <p>Creditos: {{subject.credits}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="newSubject!==undefined" aria-labelledby="myModalLabel" class="modal modal-angular fade" id="add"
+     role="dialog"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header-text card-header-danger">
+            <div class="card-text">
+              <div class="card-title">
+                <div class="d-flex justify-content-between">
+                  <h4 class="align-bottom">Agregar asignatura</h4>
+                </div>
+              </div>
+            </div>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="card-body">
+            <form #formAdd="ngForm" (ngSubmit)="onSubmit()"
+                  [formGroup]="formGroup"
+                  novalidate>
+
+              <mat-form-field appearance="outline" class="example-full-width mr-2">
+                <mat-label>Nombre*</mat-label>
+                <input [(ngModel)]="newSubject.name"
+                       formControlName="name"
+                       matInput
+                       name="name"
+                />
+                <mat-error *ngIf="formGroup.get('name').hasError('required')">
+                  Campo obligatorio
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="example-full-width mr-2">
+                <mat-label>Código*</mat-label>
+                <input [(ngModel)]="newSubject.code"
+                       formControlName="code"
+                       matInput
+                       name="code"
+                />
+                <mat-error *ngIf="formGroup.get('code').hasError('required')">
+                  Campo obligatorio
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Semestre *</mat-label>
+                <mat-select [(ngModel)]="newSubject.semester"
+                            [errorStateMatcher]="matcher"
+                            formControlName="semester">
+                  <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]"
+                              [value]="number">
+                    {{number}}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="formGroup.get('semester').hasError('required')">
+                  Debe seleccionarse alguna.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Contenido*</mat-label>
+                <textarea [(ngModel)]="newSubject.content" [errorStateMatcher]="matcher"
+                          formControlName="content"
+                          matInput name="content">
+                </textarea>
+                <mat-error *ngIf="formGroup.get('content').hasError('required')">
+                  Campo obligatorio.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Bibliografía*</mat-label>
+                <textarea [(ngModel)]="newSubject.bibliography" [errorStateMatcher]="matcher"
+                          formControlName="bibliography"
+                          matInput name="bibliography">
+                </textarea>
+                <mat-error *ngIf="formGroup.get('bibliography').hasError('required')">
+                  Campo obligatorio.
+                </mat-error>
+              </mat-form-field>
+              <label for="document">Adjunte el documento del microcurriculo:</label>
+              <div class="input-group mb-3">
+                <div class="custom-file text-center">
+                  <input #labelDocument (change)="onUploadMicrocurriculum($event.target.files)"
+                         formControlName="document"
+                         id="document"
+                         size="50" type="file">
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="form-group">
+                  <button class="btn btn-danger btn-block" mat-raised-button type="submit">
+                    Guardar
+                  </button>
+                </div>
+                <br>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

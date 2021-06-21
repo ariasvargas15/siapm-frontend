@@ -12,17 +12,11 @@ export class RequestService {
   }
 
   sendRequest(receipt: File, certificate: File, request: Request): Observable<any> {
-    console.log(request)
-    console.log(receipt.size)
-    console.log(certificate.size)
     let headers: { 'Content-Type': undefined }
     const formData: FormData = new FormData()
-    formData.append('receipt', receipt, request.document + 'receipt.pdf')
-    formData.append('certificate', certificate, request.document + 'certificate.pdf')
+    formData.append('receipt', receipt, 'RECIBO-' + request.document + '.pdf')
+    formData.append('certificate', certificate, 'CONSTANCIA-' + request.document + '.pdf')
     formData.append('data', JSON.stringify(request))
-    formData.forEach(
-      value => console.log(value)
-    )
     return this.http.post<any>(REQUEST_API, formData, {'headers': headers})
   }
 

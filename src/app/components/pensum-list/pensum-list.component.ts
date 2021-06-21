@@ -5,7 +5,15 @@ import {MatTableDataSource} from '@angular/material/table'
 import {Notifications} from '../../utils/notification'
 import {Pensum} from '../../models/pensum'
 import {PensumService} from '../../services/pensum.service'
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms'
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms'
+import {ErrorStateMatcher} from '@angular/material/core'
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted))
+  }
+}
 
 declare const $: any
 
@@ -26,6 +34,7 @@ export class PensumListComponent implements OnInit {
   pensums: Pensum[] = []
   dataSource: MatTableDataSource<Pensum>
   displayedColumns: string[] = ['code', 'career', 'active']
+  matcher = new MyErrorStateMatcher()
 
   addForm = new FormGroup({
     code: new FormControl('', [
