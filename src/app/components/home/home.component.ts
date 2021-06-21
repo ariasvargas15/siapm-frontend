@@ -12,7 +12,8 @@ import {PensumService} from '../../services/pensum.service'
 })
 export class HomeComponent implements OnInit {
 
-  pensum: Pensum
+  pensum: Pensum = new Pensum()
+  subject: Subject = new Subject()
 
   constructor(private pensumService: PensumService) {
   }
@@ -33,5 +34,14 @@ export class HomeComponent implements OnInit {
           console.log(error)
         }
       })
+  }
+
+  seeDetails(subject: Subject) {
+    this.subject = subject
+    const micro = subject.microcurriculums.find(value => value.id === subject.code)
+    this.subject.content = micro.content
+    console.log(micro)
+    this.subject.bibliography = micro.bibliography
+    this.subject.document = micro.document
   }
 }

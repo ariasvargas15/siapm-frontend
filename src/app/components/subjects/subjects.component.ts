@@ -6,7 +6,7 @@ import {ErrorStateMatcher} from '@angular/material/core'
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms'
 import {Subject} from '../../models/subject'
 import {SubjectService} from '../../services/subject.service'
-import {Semester} from '../../models/semester'
+import {FilesService} from '../../services/files.service'
 
 class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,6 +30,7 @@ export class SubjectsComponent implements OnInit {
 
   pensums: Pensum[] = []
   pensum: Pensum = new Pensum()
+  subject: Subject = new Subject()
   newSubject: Subject = new Subject()
   document: File = null
   matcher = new MyErrorStateMatcher()
@@ -59,7 +60,11 @@ export class SubjectsComponent implements OnInit {
 
   })
 
-  constructor(private pensumService: PensumService, private subjectService: SubjectService) {
+  constructor(
+    private pensumService: PensumService,
+    private subjectService: SubjectService,
+    private filesService: FilesService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -72,7 +77,7 @@ export class SubjectsComponent implements OnInit {
       .subscribe({
         next: data => {
           this.pensums = data
-          if (code === undefined){
+          if (code === undefined) {
             this.pensum = this.pensums[0]
           } else {
             this.pensum = this.pensums.find(value => value.code === code)
@@ -116,5 +121,32 @@ export class SubjectsComponent implements OnInit {
           }
         )
     }
+  }
+
+  seeDetails(subject: Subject) {
+    this.subject = subject
+    const micro = subject.microcurriculums.find(value => value.id === subject.code)
+    this.subject.content = micro.content
+    console.log(micro)
+    this.subject.bibliography = micro.bibliography
+    this.subject.document = micro.document
+  }
+
+  downloadMicrocurriculum(file: string) {
+    this.filesService.getRequestFile(file)
+      .subscribe({
+          next: data => {
+            const downloadURL = window.URL.createObjectURL(data)
+            const link = document.createElement('a')
+            link.href = downloadURL
+            link.download = file
+            link.click()
+          },
+          error: error => {
+            Notifications.showNotification('Lo sentimos ha ocurrido un error obteniendo el archivo, probablemente esta corrupto', 'danger')
+            console.log(error)
+          }
+        }
+      )
   }
 }

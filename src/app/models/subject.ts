@@ -1,3 +1,5 @@
+import {Microcurriculum} from './microcurriculum'
+
 export class Subject {
   code: string
   name: string
@@ -5,6 +7,8 @@ export class Subject {
   semester: number
   content: string
   bibliography: string
+  document: string
+  microcurriculums: Microcurriculum[]
 
   constructor() {
   }
