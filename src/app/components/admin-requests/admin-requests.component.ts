@@ -6,6 +6,7 @@ import {Notifications} from '../../utils/notification'
 import {MatPaginator} from '@angular/material/paginator'
 import {MatSort} from '@angular/material/sort'
 import {RequestService} from '../../services/request.service'
+import {Router} from '@angular/router'
 
 declare const $: any
 
@@ -25,7 +26,11 @@ export class AdminRequestsComponent implements OnInit {
   dataSource: MatTableDataSource<Request>
   displayedColumns: string[] = ['document', 'name', 'surname', 'email', 'code', 'certificate', 'receipt', 'status']
 
-  constructor(private filesService: FilesService, private requestService: RequestService) {
+  constructor(
+    private filesService: FilesService,
+    private requestService: RequestService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -73,20 +78,6 @@ export class AdminRequestsComponent implements OnInit {
     }
   }
 
-  private getRequests() {
-    this.requestService.getAllRequests()
-      .subscribe({
-        next: data => {
-          this.requests = data
-          this.initializeDataSource()
-        },
-        error: error => {
-          Notifications.showNotification(error.error, 'danger')
-          console.log(error)
-        }
-      })
-  }
-
   denyRequest() {
     this.requestService.denyRequest(this.request.document)
       .subscribe({
@@ -98,6 +89,25 @@ export class AdminRequestsComponent implements OnInit {
         },
         error: error => {
           Notifications.showNotification('Ha ocurrido un error, intente nuevamente', 'danger')
+          console.log(error)
+        }
+      })
+  }
+
+  beginReport() {
+    $('#status').modal('hide')
+    this.router.navigate(['/report', {id: this.request.document, name: this.request.name}]).then()
+  }
+
+  private getRequests() {
+    this.requestService.getAllRequests()
+      .subscribe({
+        next: data => {
+          this.requests = data
+          this.initializeDataSource()
+        },
+        error: error => {
+          Notifications.showNotification(error.error, 'danger')
           console.log(error)
         }
       })

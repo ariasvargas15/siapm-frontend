@@ -5,6 +5,7 @@ import {AdminRequestsComponent} from '../../admin-requests/admin-requests.compon
 import {AuthAdminService} from '../../../services/authAdminService'
 import {PensumListComponent} from '../../pensum-list/pensum-list.component'
 import {SubjectsComponent} from '../../subjects/subjects.component'
+import {ReportComponent} from '../../report/report.component'
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -12,5 +13,6 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'requests', component: AdminRequestsComponent, canActivate: [AuthGuardService, AuthAdminService]},
   {path: 'pensums', component: PensumListComponent, canActivate: [AuthGuardService, AuthAdminService]},
   {path: 'subjects', component: SubjectsComponent, canActivate: [AuthGuardService, AuthAdminService]},
+  {path: 'report', component: ReportComponent, canActivate: [AuthGuardService, AuthAdminService]},
 
 ]

@@ -16,6 +16,8 @@ import {PensumListComponent} from '../../pensum-list/pensum-list.component'
 import {SubjectsComponent} from '../../subjects/subjects.component'
 import {MatSelectModule} from '@angular/material/select'
 import {MatButtonModule} from '@angular/material/button'
+import {ReportComponent} from '../../report/report.component'
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -31,12 +33,14 @@ import {MatButtonModule} from '@angular/material/button'
     MatSelectModule,
     FormsModule,
     MatButtonModule,
+    MatCheckboxModule,
   ],
   declarations: [
     PensumComponent,
     AdminRequestsComponent,
     PensumListComponent,
     SubjectsComponent,
+    ReportComponent,
   ],
   providers: [
     AuthGuardService,
