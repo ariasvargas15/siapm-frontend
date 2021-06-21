@@ -23,4 +23,8 @@ export class RequestService {
   getAllRequests(): Observable<Request[]> {
     return this.http.get<Request[]>(REQUEST_API)
   }
+
+  denyRequest(requestId: string): Observable<any> {
+    return this.http.post<any>(REQUEST_API + 'deny/' + requestId, {})
+  }
 }

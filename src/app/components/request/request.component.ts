@@ -71,6 +71,7 @@ export class RequestComponent implements OnInit {
 
   sendRequest() {
     if (this.formGroup.valid) {
+      this.request.status = 'PENDIENTE'
       this.requestService.sendRequest(this.receipt, this.certificate, this.request)
         .subscribe({
             next: data => {

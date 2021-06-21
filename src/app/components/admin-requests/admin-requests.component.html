@@ -44,13 +44,13 @@
                 <ng-container matColumnDef="certificate">
                   <th *matHeaderCellDef mat-header-cell mat-sort-header>CONSTANCIA</th>
                   <td *matCellDef="let element" mat-cell>
-                    <button class="btn btn-info" (click)="downloadFile(element.certificate)"><i class="material-icons">download</i></button>
+                    <button *ngIf="element.certificate!==undefined" class="btn btn-info btn-sm" (click)="downloadFile(element.certificate)"><i class="material-icons">download</i></button>
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="receipt">
                   <th *matHeaderCellDef mat-header-cell mat-sort-header>RECIBO</th>
                   <td *matCellDef="let element" mat-cell>
-                    <button class="btn btn-info" (click)="downloadFile(element.receipt)"><i class="material-icons">download</i></button>
+                    <button *ngIf="element.receipt!==undefined" class="btn btn-info btn-sm" (click)="downloadFile(element.receipt)"><i class="material-icons">download</i></button>
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="status">
@@ -58,7 +58,7 @@
                   <td *matCellDef="let element" mat-cell> {{element.status}} </td>
                 </ng-container>
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-                <tr *matRowDef="let row; columns: displayedColumns;"
+                <tr (click)="seeModal(row)" *matRowDef="let row; columns: displayedColumns;"
                     mat-row></tr>
                 <div *ngIf="requests.length !=0">
                   <tr *matNoDataRow class="mat-row">
@@ -76,3 +76,39 @@
     </div>
   </div>
 </div>
+
+<div aria-labelledby="myModalLabel" class="modal modal-angular fade" id="status"
+     role="dialog"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header-text card-header-danger">
+            <div class="card-text">
+              <div class="card-title">
+                <div class="d-flex justify-content-between">
+                  <h4 class="align-bottom">Reporte de asignaturas</h4>
+                </div>
+              </div>
+            </div>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-center mt-3">
+              ¿Deseas aprobar o rechazar esta solicitud de Reporte de Asignaturas?
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                <button (click)="denyRequest()" class="btn btn-dark btn-md mr-2" type="submit">Rechazar <i class="material-icons">do_disturb</i>
+                </button>
+                <button class="btn btn-success btn-md ml-2" type="submit">Aprobar <i class="material-icons">done</i>
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

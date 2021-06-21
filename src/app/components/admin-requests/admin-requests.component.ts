@@ -7,6 +7,8 @@ import {MatPaginator} from '@angular/material/paginator'
 import {MatSort} from '@angular/material/sort'
 import {RequestService} from '../../services/request.service'
 
+declare const $: any
+
 @Component({
   selector: 'app-admin-requests',
   templateUrl: './admin-requests.component.html',
@@ -18,6 +20,7 @@ export class AdminRequestsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator
 
+  request: Request
   requests: Request[] = []
   dataSource: MatTableDataSource<Request>
   displayedColumns: string[] = ['document', 'name', 'surname', 'email', 'code', 'certificate', 'receipt', 'status']
@@ -63,6 +66,13 @@ export class AdminRequestsComponent implements OnInit {
       )
   }
 
+  seeModal(row: Request) {
+    if (row.status === 'PENDIENTE') {
+      $('#status').modal('show')
+      this.request = row
+    }
+  }
+
   private getRequests() {
     this.requestService.getAllRequests()
       .subscribe({
@@ -72,6 +82,22 @@ export class AdminRequestsComponent implements OnInit {
         },
         error: error => {
           Notifications.showNotification(error.error, 'danger')
+          console.log(error)
+        }
+      })
+  }
+
+  denyRequest() {
+    this.requestService.denyRequest(this.request.document)
+      .subscribe({
+        next: data => {
+          $('#status').modal('hide')
+          this.requests.find(value => value === this.request).status = 'RECHAZADO'
+          this.initializeDataSource()
+          Notifications.showNotification('Solicitud rechazada', 'info')
+        },
+        error: error => {
+          Notifications.showNotification('Ha ocurrido un error, intente nuevamente', 'danger')
           console.log(error)
         }
       })
