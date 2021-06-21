@@ -6,6 +6,7 @@ import {ErrorStateMatcher} from '@angular/material/core'
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms'
 import {Subject} from '../../models/subject'
 import {SubjectService} from '../../services/subject.service'
+import {Semester} from '../../models/semester'
 
 class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -13,6 +14,8 @@ class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted))
   }
 }
+
+declare const $: any
 
 @Component({
   selector: 'app-subjects',
@@ -38,6 +41,9 @@ export class SubjectsComponent implements OnInit {
     code: new FormControl('', [
       Validators.required
     ]),
+    credits: new FormControl('', [
+      Validators.required
+    ]),
     semester: new FormControl('', [
       Validators.required
     ]),
@@ -61,12 +67,16 @@ export class SubjectsComponent implements OnInit {
     this.getPensum()
   }
 
-  getPensum(): void {
+  getPensum(code?: string): void {
     this.pensumService.getAllPensums()
       .subscribe({
         next: data => {
           this.pensums = data
-          this.pensum = this.pensums[0]
+          if (code === undefined){
+            this.pensum = this.pensums[0]
+          } else {
+            this.pensum = this.pensums.find(value => value.code === code)
+          }
         },
         error: error => {
           Notifications.showNotification(error.error, 'danger')
@@ -93,8 +103,10 @@ export class SubjectsComponent implements OnInit {
       this.subjectService.saveSubject(this.pensum.code, this.newSubject, this.document)
         .subscribe({
             next: data => {
+              $('#add').modal('hide')
               this.ngAddForm.reset()
               this.ngAddForm.resetForm()
+              this.getPensum(this.pensum.code)
               Notifications.showNotification('Asignatura guardada correctamente', 'success')
             },
             error: error => {

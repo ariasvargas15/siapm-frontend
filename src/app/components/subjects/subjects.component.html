@@ -70,7 +70,6 @@
                   Campo obligatorio
                 </mat-error>
               </mat-form-field>
-
               <mat-form-field appearance="outline" class="example-full-width mr-2">
                 <mat-label>Código*</mat-label>
                 <input [(ngModel)]="newSubject.code"
@@ -79,6 +78,18 @@
                        name="code"
                 />
                 <mat-error *ngIf="formGroup.get('code').hasError('required')">
+                  Campo obligatorio
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="example-full-width mr-2">
+                <mat-label>Créditos*</mat-label>
+                <input [(ngModel)]="newSubject.credits"
+                       formControlName="credits"
+                       matInput
+                       name="credits"
+                       type="number"
+                />
+                <mat-error *ngIf="formGroup.get('credits').hasError('required')">
                   Campo obligatorio
                 </mat-error>
               </mat-form-field>
