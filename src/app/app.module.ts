@@ -25,7 +25,8 @@ import {RegisterComponent} from './components/register/register.component'
 import {PensumService} from './services/pensum.service'
 import {RequestService} from './services/request.service'
 import {FilesService} from './services/files.service'
-import {SubjectService} from './services/subject.service'
+import {SubjectService} from './services/subject.service';
+import { ReportComponent } from './components/report/report.component'
 
 @NgModule({
   declarations: [

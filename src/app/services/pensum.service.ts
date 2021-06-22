@@ -23,4 +23,8 @@ export class PensumService {
   getAllPensums(): Observable<Pensum[]> {
     return this.http.get<Pensum[]>(PENSUM_API + 'all')
   }
+
+  getPensum(code: string): Observable<Pensum> {
+    return this.http.get<Pensum>(PENSUM_API + code)
+  }
 }

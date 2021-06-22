@@ -8,6 +8,7 @@ export class Subject {
   content: string
   bibliography: string
   document: string
+  checked: boolean
   microcurriculums: Microcurriculum[]
 
   constructor() {
